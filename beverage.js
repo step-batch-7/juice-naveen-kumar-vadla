@@ -12,7 +12,7 @@ const main = function() {
 
 	const path = "./transactionsData.json";
 
-	const displayMsg = validateAndPerformAction(
+	const result = validateAndPerformAction(
 		args,
 		isFilePresent,
 		readFromFile,
@@ -20,7 +20,7 @@ const main = function() {
 		timeStamp,
 		path
 	);
-	console.log(displayMsg);
+	console.log(result);
 };
 
 main();
