@@ -9,9 +9,7 @@ const validateAndPerformAction = require("./src/performAction")
 
 const main = function() {
 	const args = process.argv.slice(2);
-
 	const path = "./transactionsData.json";
-
 	const result = validateAndPerformAction(
 		args,
 		isFilePresent,

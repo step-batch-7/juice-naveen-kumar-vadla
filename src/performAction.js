@@ -57,21 +57,25 @@ const performAction = function(
 			timeStamp,
 			path
 		);
-		const empTotalBeverages = empData.reduce(function(sum, obj) {
-			return sum + parseInt(obj["Quantity"]);
-		}, 0);
-		const headings = Object.keys(empData[0]);
-		const fields = empData.map(function(obj) {
-			return Object.values(obj);
-		});
-		return (
-			headings +
-			"\n" +
-			fields.join("\n") +
-			"\n" +
-			"Total Beverages: " +
-			empTotalBeverages
-		);
+		if (empData != 0) {
+			const empTotalBeverages = empData.reduce(function(sum, obj) {
+				return sum + parseInt(obj["Quantity"]);
+			}, 0);
+			const headings = Object.keys(empData[0]);
+			const fields = empData.map(function(obj) {
+				return Object.values(obj);
+			});
+			return (
+				headings +
+				"\n" +
+				fields.join("\n") +
+				"\n" +
+				"Total Beverages: " +
+				empTotalBeverages
+			);
+		} else {
+			return "Records Not Found";
+		}
 	}
 };
 

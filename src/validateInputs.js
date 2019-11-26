@@ -27,8 +27,9 @@ const validateSave = function(args) {
 };
 
 const validateQuery = function(args) {
-	if (args.length == 3 && utilities.isFilePresent("./transactionsData.json")) {
+	if (args.length == 3) {
 		let index = args.indexOf("--empId");
+
 		return utilities.isNumber(args[index + 1]);
 	}
 	return false;

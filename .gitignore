@@ -1,3 +1,4 @@
 node_modules/
 .gitignore
 .nyc_output/
+coverage/
