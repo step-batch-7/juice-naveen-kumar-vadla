@@ -35,11 +35,10 @@ const save = function(
 	} else {
 		record[empId] = [newRecord];
 	}
-	const tableColumns = Object.keys(newRecord);
-	const tableValues = Object.values(newRecord);
 	const stringifiedRecord = JSON.stringify(record);
 	writeIntoFile(path, stringifiedRecord);
-	return "Transaction Recorded:\n" + tableColumns + "\n" + tableValues;
+	return newRecord;
 };
 
 exports.save = save;
+exports.generateTransactionRecord = generateTransactionRecord;

@@ -14,12 +14,12 @@ const isFilePresent = function(filepath) {
 	return fs.existsSync(filepath);
 };
 
-const isNumber = function(num) {
-	return Number.isInteger(parseInt(num));
-};
-
 const timeStamp = function() {
 	return new Date().toJSON();
+};
+
+const isNumber = function(num) {
+	return Number.isInteger(parseInt(num));
 };
 
 const getIndexOfAction = function(args) {

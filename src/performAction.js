@@ -35,17 +35,45 @@ const performAction = function(
 	timeStamp,
 	path
 ) {
-	const actions = { "--save": save, "--query": query };
-	const indexOfAction = getIndexOfAction(args);
-	const action = args[indexOfAction];
-	return actions[action](
-		args,
-		isFilePresent,
-		readFromFile,
-		writeIntoFile,
-		timeStamp,
-		path
-	);
+	if (args.includes("--save")) {
+		const newRecord = save(
+			args,
+			isFilePresent,
+			readFromFile,
+			writeIntoFile,
+			timeStamp,
+			path
+		);
+		const tableColumns = Object.keys(newRecord);
+		const tableValues = Object.values(newRecord);
+		return "Transaction Recorded:\n" + tableColumns + "\n" + tableValues;
+	}
+	if (args.includes("--query")) {
+		const empData = query(
+			args,
+			isFilePresent,
+			readFromFile,
+			writeIntoFile,
+			timeStamp,
+			path
+		);
+		const empTotalBeverages = empData.reduce(function(sum, obj) {
+			return sum + parseInt(obj["Quantity"]);
+		}, 0);
+		const headings = Object.keys(empData[0]);
+		const fields = empData.map(function(obj) {
+			return Object.values(obj);
+		});
+		return (
+			headings +
+			"\n" +
+			fields.join("\n") +
+			"\n" +
+			"Total Beverages: " +
+			empTotalBeverages
+		);
+	}
 };
 
 exports.validateAndPerformAction = validateAndPerformAction;
+exports.performAction = performAction;
