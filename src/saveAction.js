@@ -24,7 +24,7 @@ const save = function(
 	let record = {};
 	if (isFilePresent(path)) {
 		const data = readFromFile(path);
-		record = JSON.parse(data);
+		record = JSON.parse(data || "{}");
 	}
 	const recordKeys = Object.keys(record);
 	const indexOfEid = args.indexOf("--empId") + 1;

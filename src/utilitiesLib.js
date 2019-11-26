@@ -19,7 +19,7 @@ const timeStamp = function() {
 };
 
 const isNumber = function(num) {
-	return Number.isInteger(+num);
+	return Number.isInteger(+num) && +num > 0;
 };
 
 const getIndexOfAction = function(args) {

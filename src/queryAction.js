@@ -10,7 +10,7 @@ const query = function(
 ) {
 	if (isFilePresent(path)) {
 		const data = readFromFile(path);
-		const record = JSON.parse(data);
+		const record = JSON.parse(data || "{}");
 		const indexOfEid = args.indexOf("--empId") + 1;
 		const empId = args[indexOfEid];
 		const allEmpIds = Object.keys(record);

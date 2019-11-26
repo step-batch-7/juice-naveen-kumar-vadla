@@ -8,20 +8,20 @@ const isValidInput = function(args) {
 	};
 	const index = utilities.getIndexOfAction(args);
 	return validateAction[args[index]](args);
-};
+}; 
 
 const invalidInput = function() {
 	return false;
 };
 
 const validateSave = function(args) {
-	const indOfEId = args.indexOf("--empId") + 1;
-	const indOfQty = args.indexOf("--qty") + 1;
-	const indOfBev = args.indexOf("--beverage") + 1;
+	const indexOfEId = args.indexOf("--empId") + 1;
+	const indexOfQty = args.indexOf("--qty") + 1;
+	const indexOfBev = args.indexOf("--beverage") + 1;
 	return (
-		utilities.isNumber(args[indOfEId]) &&
-		utilities.isNumber(args[indOfQty]) &&
-		!utilities.isNumber(args[indOfBev]) &&
+		utilities.isNumber(args[indexOfEId]) &&
+		utilities.isNumber(args[indexOfQty]) &&
+		!utilities.isNumber(args[indexOfBev]) &&
 		args.length == 7
 	);
 };
