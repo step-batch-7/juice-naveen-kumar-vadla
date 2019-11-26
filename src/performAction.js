@@ -77,6 +77,7 @@ const performAction = function(
 			return "Records Not Found";
 		}
 	}
+	return 0;
 };
 
 exports.validateAndPerformAction = validateAndPerformAction;
