@@ -15,20 +15,14 @@ const query = function(
 		const date = args[indexOfDate];
 		const indexOfEid = args.indexOf("--empId") + 1;
 		const empId = args[indexOfEid];
-
-		if (args.includes("--date") && args.length == 3) {
-			return queryDate(record, date);
+		let empData = record;
+		if (args.includes("--date")) {
+			empData = empData.filter(isGivenDate(date));
 		}
-		const allEmpIds = Object.keys(record);
-		if (allEmpIds.includes(empId)) {
-			const empData = record[empId];
-			if (args.includes("--date")) {
-				const result = empData.filter(isGivenDate(date));
-
-				return result;
-			}
-			return empData;
+		if (args.includes("--empId")) {
+			empData = empData.filter(isGivenEmployee(empId));
 		}
+		return empData;
 	}
 	return 0;
 };
@@ -40,16 +34,11 @@ const isGivenDate = function(date) {
 	};
 };
 
-const queryDate = function(record, date) {
-	const allRecords = Object.values(record);
-	const allEmpData = allRecords.reduce(function(context, array) {
-		for (let index = 0; index < array.length; index++) {
-			context.push(array[index]);
-		}
-		return context;
-	});
-	return allEmpData.filter(isGivenDate(date));
+const isGivenEmployee = function(empId) {
+	return function(obj) {
+		const trEmpId = obj["empId"];
+		return empId == trEmpId;
+	};
 };
 
 exports.query = query;
-exports.queryDate = queryDate;

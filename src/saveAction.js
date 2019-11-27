@@ -21,20 +21,13 @@ const save = function(
 	timeStamp,
 	path
 ) {
-	let record = {};
+	let record = [];
 	if (isFilePresent(path)) {
 		const data = readFromFile(path);
 		record = JSON.parse(data || "{}");
 	}
 	const newRecord = generateTransactionRecord(args, timeStamp);
-	const indexOfEid = args.indexOf("--empId") + 1;
-	const empId = args[indexOfEid];
-	const recordKeys = Object.keys(record);
-	if (recordKeys.includes(empId)) {
-		record[empId].push(newRecord);
-	} else {
-		record[empId] = [newRecord];
-	}
+	record.push(newRecord);
 	const stringifiedRecord = JSON.stringify(record);
 	writeIntoFile(path, stringifiedRecord);
 	return newRecord;
