@@ -26,10 +26,10 @@ const save = function(
 		const data = readFromFile(path);
 		record = JSON.parse(data || "{}");
 	}
-	const recordKeys = Object.keys(record);
+	const newRecord = generateTransactionRecord(args, timeStamp);
 	const indexOfEid = args.indexOf("--empId") + 1;
 	const empId = args[indexOfEid];
-	const newRecord = generateTransactionRecord(args, timeStamp);
+	const recordKeys = Object.keys(record);
 	if (recordKeys.includes(empId)) {
 		record[empId].push(newRecord);
 	} else {

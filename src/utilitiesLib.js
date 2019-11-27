@@ -23,7 +23,7 @@ const isNumber = function(num) {
 };
 
 const getIndexOfAction = function(args) {
-	let exorArgs = args.includes("--save") && args.includes("--query");
+	const exorArgs = args.includes("--save") && args.includes("--query");
 	if (exorArgs) {
 		return -1;
 	}
