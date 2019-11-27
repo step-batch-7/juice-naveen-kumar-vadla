@@ -23,7 +23,9 @@ const query = function(
 		if (allEmpIds.includes(empId)) {
 			const empData = record[empId];
 			if (args.includes("--date")) {
-				return empData.filter(isGivenDate(date));
+				const result = empData.filter(isGivenDate(date));
+
+				return result;
 			}
 			return empData;
 		}
@@ -33,7 +35,7 @@ const query = function(
 
 const isGivenDate = function(date) {
 	return function(obj) {
-		const trDate = obj["Date"].slice(0, 10);
+		const trDate = obj["date"].slice(0, 10);
 		return date == trDate;
 	};
 };
@@ -50,3 +52,4 @@ const queryDate = function(record, date) {
 };
 
 exports.query = query;
+exports.queryDate = queryDate;

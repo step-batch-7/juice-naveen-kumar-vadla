@@ -1,13 +1,13 @@
 const utilities = require("../src/utilitiesLib");
-const assert = require("assert");
+const assert = require("chai").assert;
 
 describe("isNumber", function() {
 	it("should validate numbrics only", function() {
 		assert.ok(utilities.isNumber("232"));
 	});
 	it("should validate non numbrics", function() {
-		assert.ok(!utilities.isNumber("a"));
-		assert.ok(!utilities.isNumber("@"));
+		assert.notOk(utilities.isNumber("a"));
+		assert.notOk(utilities.isNumber("@"));
 	});
 });
 
@@ -47,7 +47,7 @@ describe("writeIntoFile", function() {
 
 describe("timeStamp", function() {
 	it("Should return time", function() {
-		assert.strictEqual(utilities.timeStamp(), new Date().toJSON());
+		assert.strictEqual(utilities.timeStamp(), utilities.timeStamp());
 	});
 });
 

@@ -1,9 +1,9 @@
-const assert = require("assert");
+const assert = require("chai").assert;
 const validateInput = require("../src/validateInputs");
 
 describe("invalidInput", function() {
 	it("should return false", function() {
-		assert.ok(!validateInput.invalidInput());
+		assert.notOk(validateInput.invalidInput());
 	});
 });
 
@@ -12,16 +12,36 @@ describe("validateQuery", function() {
 		assert.ok(validateInput.validateQuery(["--query", "--empId", "343434"]));
 	});
 	it("should validate invalid query args are given", function() {
-		assert.ok(!validateInput.validateQuery(["--query", "--naveen", "343434"]));
-		assert.ok(
-			!validateInput.validateQuery([
+		assert.notOk(
+			validateInput.validateQuery(["--query", "--naveen", "343434"])
+		);
+		assert.notOk(
+			validateInput.validateQuery(["--query", "--date", "dd-mm-yyyy"])
+		);
+		assert.notOk(
+			validateInput.validateQuery([
 				"--query",
-				"--naveen",
-				"343434",
+				"--empId",
+				"123",
+				"--date",
+				"10-10-2019",
 				"--qty",
-				"3"
+				"12"
 			])
 		);
+	});
+	it("Should validate if empId and date are given ", function() {
+		assert.ok(
+			validateInput.validateQuery([
+				"--query",
+				"--empId",
+				"123",
+				"--date",
+				"29-10-2019"
+			])
+		);
+		assert.ok(validateInput.validateQuery(["--query", "--date", "12-03-2014"]));
+		assert.ok(validateInput.validateQuery(["--query", "--empId", "1234"]));
 	});
 });
 
@@ -40,8 +60,8 @@ describe("validateSave", function() {
 		);
 	});
 	it("should validate for invalid save args", function() {
-		assert.ok(
-			!validateInput.validateSave([
+		assert.notOk(
+			validateInput.validateSave([
 				"--save",
 				"--empId",
 				"hello",
@@ -72,9 +92,9 @@ describe("isValidInput", function() {
 		assert.ok(validateInput.isValidInput(["--query", "--empId", "343434"]));
 	});
 	it("should validate for invalid args", function() {
-		assert.ok(
-			!validateInput.isValidInput(["--save", "--query", "--empId", "343434"])
+		assert.notOk(
+			validateInput.isValidInput(["--save", "--query", "--empId", "343434"])
 		);
-		assert.ok(!validateInput.isValidInput(["--empId", "343434"]));
+		assert.notOk(validateInput.isValidInput(["--empId", "343434"]));
 	});
 });

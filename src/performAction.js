@@ -44,9 +44,13 @@ const performAction = function(
 			timeStamp,
 			path
 		);
-		const tableColumns = Object.keys(newRecord);
-		const tableValues = Object.values(newRecord);
-		return "Transaction Recorded:\n" + tableColumns + "\n" + tableValues;
+		const Values = Object.values(newRecord);
+		return (
+			"Transaction Recorded:\n" +
+			"Employee ID, Beverage, Quantity, Date" +
+			"\n" +
+			Values
+		);
 	}
 	if (args.includes("--query")) {
 		const empData = query(
@@ -59,16 +63,15 @@ const performAction = function(
 		);
 		if (empData != 0) {
 			const empTotalBeverages = empData.reduce(function(sum, obj) {
-				return sum + parseInt(obj["Quantity"]);
+				return sum + parseInt(obj["qty"]);
 			}, 0);
-			const headings = Object.keys(empData[0]);
-			const fields = empData.map(function(obj) {
+			const values = empData.map(function(obj) {
 				return Object.values(obj);
 			});
 			return (
-				headings +
+				"Employee ID, Beverage, Quantity, Date" +
 				"\n" +
-				fields.join("\n") +
+				values.join("\n") +
 				"\n" +
 				"Total Beverages: " +
 				empTotalBeverages

@@ -6,10 +6,10 @@ const generateTransactionRecord = function(input, timeStamp) {
 	const indexOfQty = input.indexOf("--qty") + 1;
 
 	return {
-		"Employee ID": +input[indexOfEid],
-		Beverage: input[indexOfBev],
-		Quantity: +input[indexOfQty],
-		Date: timeStamp()
+		empId: +input[indexOfEid],
+		beverage: input[indexOfBev],
+		qty: +input[indexOfQty],
+		date: timeStamp()
 	};
 };
 

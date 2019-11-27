@@ -38,7 +38,9 @@ const validateQuery = function(args) {
 				dateArray.every(utilities.isNumber)
 			);
 		}
+
 		const index = args.indexOf("--empId") + 1 || args.indexOf("--date") + 1;
+
 		return args[index].split("-").every(utilities.isNumber);
 	}
 	return false;

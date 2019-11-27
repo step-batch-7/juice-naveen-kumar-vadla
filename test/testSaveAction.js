@@ -1,6 +1,6 @@
 "use strict";
 
-const assert = require("assert");
+const assert = require("chai").assert;
 
 const saveAction = require("../src/saveAction");
 
@@ -17,10 +17,10 @@ describe("generateTransactionRecord", function() {
 		];
 
 		const expected = {
-			"Employee ID": 123,
-			Beverage: "orange",
-			Quantity: 1,
-			Date: "2019-11-26T05:33:25.642Z"
+			empId: 123,
+			beverage: "orange",
+			qty: 1,
+			date: "2019-11-26T05:33:25.642Z"
 		};
 
 		const timeStamp = function() {
@@ -34,8 +34,8 @@ describe("generateTransactionRecord", function() {
 });
 
 describe("save", function() {
-	it("Should validate new Transaction data", function() {
-		let args = [
+	it("Should validate even if file is not present", function() {
+		const args = [
 			"--save",
 			"--qty",
 			"1",
@@ -44,20 +44,20 @@ describe("save", function() {
 			"--beverage",
 			"orange"
 		];
-		let timeStamp = function() {
+		const timeStamp = function() {
 			return "2019-11-26T05:33:25.642Z";
 		};
-		let writeIntoFile = function(filepath, data) {
+		const writeIntoFile = function(filepath, data) {
 			return "";
 		};
-		let readFromFile = function(filepath) {
+		const readFromFile = function(filepath) {
 			return "{}";
 		};
-		let isFilePresent = function(filepath) {
+		const isFilePresent = function(filepath) {
 			return false;
 		};
-		let path = "./naveen.js";
-		let actual = saveAction.save(
+		const path = "./naveen.js";
+		const actual = saveAction.save(
 			args,
 			isFilePresent,
 			readFromFile,
@@ -65,19 +65,39 @@ describe("save", function() {
 			timeStamp,
 			path
 		);
-		let expected = {
-			"Employee ID": 123,
-			Beverage: "orange",
-			Quantity: 1,
-			Date: "2019-11-26T05:33:25.642Z"
+		const expected = {
+			empId: 123,
+			beverage: "orange",
+			qty: 1,
+			date: "2019-11-26T05:33:25.642Z"
 		};
 		assert.deepStrictEqual(actual, expected);
+	});
 
-		path = "./transactionsData";
-		isFilePresent = function(filepath) {
+	it("Should validate if file is present but contains empty space", function() {
+		const args = [
+			"--save",
+			"--qty",
+			"1",
+			"--empId",
+			"123",
+			"--beverage",
+			"orange"
+		];
+		const timeStamp = function() {
+			return "2019-11-26T05:33:25.642Z";
+		};
+		const writeIntoFile = function(filepath, data) {
+			return "";
+		};
+		const readFromFile = function(filepath) {
+			return "";
+		};
+		const isFilePresent = function(filepath) {
 			return true;
 		};
-		actual = saveAction.save(
+		const path = "./transactionsData";
+		const actual = saveAction.save(
 			args,
 			isFilePresent,
 			readFromFile,
@@ -85,18 +105,38 @@ describe("save", function() {
 			timeStamp,
 			path
 		);
-		expected = {
-			"Employee ID": 123,
-			Beverage: "orange",
-			Quantity: 1,
-			Date: "2019-11-26T05:33:25.642Z"
+		const expected = {
+			empId: 123,
+			beverage: "orange",
+			qty: 1,
+			date: "2019-11-26T05:33:25.642Z"
 		};
 		assert.deepStrictEqual(actual, expected);
-
-		readFromFile = function(filepath) {
-			return '{"123": [{"Employee ID": "123","Beverage": "orange","Quantity": "2","Date": "2019-11-26T02:39:14.323Z"}]}';
+	});
+	it("Should validate if file is present and contains previous transactions", function() {
+		const args = [
+			"--save",
+			"--qty",
+			"1",
+			"--empId",
+			"123",
+			"--beverage",
+			"orange"
+		];
+		const timeStamp = function() {
+			return "2019-11-26T05:33:25.642Z";
 		};
-		actual = saveAction.save(
+		const writeIntoFile = function(filepath, data) {
+			return "";
+		};
+		const isFilePresent = function(filepath) {
+			return true;
+		};
+		const readFromFile = function(filepath) {
+			return '{"123": [{"empId": "123","beverage": "orange","qty": "2","date": "2019-11-26T02:39:14.323Z"}]}';
+		};
+		const path = "./transactionsData";
+		const actual = saveAction.save(
 			args,
 			isFilePresent,
 			readFromFile,
@@ -104,11 +144,11 @@ describe("save", function() {
 			timeStamp,
 			path
 		);
-		expected = {
-			"Employee ID": 123,
-			Beverage: "orange",
-			Quantity: 1,
-			Date: "2019-11-26T05:33:25.642Z"
+		const expected = {
+			empId: 123,
+			beverage: "orange",
+			qty: 1,
+			date: "2019-11-26T05:33:25.642Z"
 		};
 		assert.deepStrictEqual(actual, expected);
 	});

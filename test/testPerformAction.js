@@ -1,5 +1,5 @@
 "use strict";
-const assert = require("assert");
+const assert = require("chai").assert;
 const fs = require("fs");
 
 const performAction = require("../src/performAction");
@@ -38,7 +38,7 @@ describe("performAction", function() {
 		);
 		let expected =
 			"Transaction Recorded:\n" +
-			"Employee ID,Beverage,Quantity,Date" +
+			"Employee ID, Beverage, Quantity, Date" +
 			"\n" +
 			"123,orange,1,2019-11-26T05:33:25.642Z";
 		assert.strictEqual(actual, expected);
@@ -53,7 +53,7 @@ describe("performAction", function() {
 			return "";
 		};
 		let readFromFile = function(filepath) {
-			return '{"123": [{"Employee ID": "123","Beverage": "orange","Quantity": "2","Date": "2019-11-26T02:39:14.323Z"}]}';
+			return '{"123": [{"empId": "123","beverage": "orange","qty": "2","date": "2019-11-26T02:39:14.323Z"}]}';
 		};
 		let isFilePresent = function(filepath) {
 			return true;
@@ -68,7 +68,7 @@ describe("performAction", function() {
 			path
 		);
 		let expected =
-			"Employee ID,Beverage,Quantity,Date" +
+			"Employee ID, Beverage, Quantity, Date" +
 			"\n" +
 			"123,orange,2,2019-11-26T02:39:14.323Z" +
 			"\n" +
@@ -85,7 +85,7 @@ describe("performAction", function() {
 			return "";
 		};
 		let readFromFile = function(filepath) {
-			return '{"123": [{"Employee ID": "123","Beverage": "orange","Quantity": "2","Date": "2019-11-26T02:39:14.323Z"}]}';
+			return '{"123": [{"empId": "123","beverage": "orange","qty": "2","date": "2019-11-26T02:39:14.323Z"}]}';
 		};
 		let isFilePresent = function(filepath) {
 			return false;
@@ -163,7 +163,7 @@ describe("validateAndPerformAction", function() {
 		);
 		let expected =
 			"Transaction Recorded:\n" +
-			"Employee ID,Beverage,Quantity,Date" +
+			"Employee ID, Beverage, Quantity, Date" +
 			"\n" +
 			"123,orange,1,2019-11-26T05:33:25.642Z";
 		assert.strictEqual(actual, expected);
@@ -178,7 +178,7 @@ describe("validateAndPerformAction", function() {
 			return "";
 		};
 		let readFromFile = function(filepath) {
-			return '{"123": [{"Employee ID": "123","Beverage": "orange","Quantity": "2","Date": "2019-11-26T02:39:14.323Z"}]}';
+			return '{"123": [{"empId": "123","beverage": "orange","qty": "2","date": "2019-11-26T02:39:14.323Z"}]}';
 		};
 		let isFilePresent = function(filepath) {
 			return false;
@@ -231,7 +231,7 @@ describe("validateAndPerformAction", function() {
 			return "";
 		};
 		let readFromFile = function(filepath) {
-			return '{"123": [{"Employee ID": "123","Beverage": "orange","Quantity": "2","Date": "2019-11-26T02:39:14.323Z"}]}';
+			return '{"123": [{"empId": "123","beverage": "orange","qty": "2","date": "2019-11-26T02:39:14.323Z"}]}';
 		};
 		let isFilePresent = function(filepath) {
 			return true;
@@ -246,7 +246,7 @@ describe("validateAndPerformAction", function() {
 			path
 		);
 		let expected =
-			"Employee ID,Beverage,Quantity,Date" +
+			"Employee ID, Beverage, Quantity, Date" +
 			"\n" +
 			"123,orange,2,2019-11-26T02:39:14.323Z" +
 			"\n" +
