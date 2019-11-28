@@ -11,6 +11,7 @@ describe("validateQuery", function() {
 	it("should validate valid query args are given", function() {
 		assert.ok(validateInput.validateQuery(["--query", "--empId", "343434"]));
 	});
+
 	it("should validate invalid query args are given", function() {
 		assert.notOk(
 			validateInput.validateQuery(["--query", "--naveen", "343434"])
@@ -26,10 +27,13 @@ describe("validateQuery", function() {
 				"--date",
 				"10-10-2019",
 				"--qty",
-				"12"
+				"12",
+				"--beverage",
+				"orange"
 			])
 		);
 	});
+
 	it("Should validate if empId and date are given ", function() {
 		assert.ok(
 			validateInput.validateQuery([

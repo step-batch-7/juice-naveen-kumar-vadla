@@ -133,7 +133,7 @@ describe("save", function() {
 			return true;
 		};
 		const readFromFile = function(filepath) {
-			return '{"123": [{"empId": "123","beverage": "orange","qty": "2","date": "2019-11-26T02:39:14.323Z"}]}';
+			return '[{"empId": "123","beverage": "orange","qty": "2","date": "2019-11-26T02:39:14.323Z"}]';
 		};
 		const path = "./transactionsData";
 		const actual = saveAction.save(

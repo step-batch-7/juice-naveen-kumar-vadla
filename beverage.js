@@ -3,14 +3,15 @@
 const readFromFile = require("./src/utilitiesLib").readFromFile;
 const writeIntoFile = require("./src/utilitiesLib").writeIntoFile;
 const isFilePresent = require("./src/utilitiesLib").isFilePresent;
-const timeStamp = require("./src/utilitiesLib").timeStamp;
-const validateAndPerformAction = require("./src/performAction")
-	.validateAndPerformAction;
+const performAction = require("./src/performAction").performAction;
 
 const main = function() {
 	const args = process.argv.slice(2);
 	const path = "./transactionsData.json";
-	const result = validateAndPerformAction(
+	const timeStamp = function() {
+		return new Date();
+	};
+	const result = performAction(
 		args,
 		isFilePresent,
 		readFromFile,

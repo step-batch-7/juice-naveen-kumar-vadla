@@ -14,29 +14,19 @@ const isFilePresent = function(filepath) {
 	return fs.existsSync(filepath);
 };
 
-const timeStamp = function() {
-	return new Date().toJSON();
-};
-
-const isNumber = function(num) {
+const isPositiveNumber = function(num) {
 	return Number.isInteger(+num) && +num > 0;
 };
 
 const getIndexOfAction = function(args) {
-	const exorArgs = args.includes("--save") && args.includes("--query");
-	if (exorArgs) {
+	const bothPresent = args.includes("--save") && args.includes("--query");
+	if (bothPresent) {
 		return -1;
 	}
 	return (args.indexOf("--save") + 1 || args.indexOf("--query") + 1) - 1;
 };
 
-const helpMsg = function() {
-	return "please enter valid input";
-};
-
-exports.isNumber = isNumber;
-exports.timeStamp = timeStamp;
-exports.helpMsg = helpMsg;
+exports.isPositiveNumber = isPositiveNumber;
 exports.getIndexOfAction = getIndexOfAction;
 exports.isFilePresent = isFilePresent;
 exports.readFromFile = readFromFile;

@@ -1,34 +1,33 @@
 const utilities = require("../src/utilitiesLib");
 const assert = require("chai").assert;
 
-describe("isNumber", function() {
-	it("should validate numbrics only", function() {
-		assert.ok(utilities.isNumber("232"));
+describe("isPositiveNumber", function() {
+	it("should validate numbers only", function() {
+		assert.ok(utilities.isPositiveNumber("232"));
 	});
 	it("should validate non numbrics", function() {
-		assert.notOk(utilities.isNumber("a"));
-		assert.notOk(utilities.isNumber("@"));
+		assert.notOk(utilities.isPositiveNumber("a"));
+		assert.notOk(utilities.isPositiveNumber("@"));
+	});
+	it("Should validate negative numbers", function() {
+		assert.notOk(utilities.isPositiveNumber(-1));
+		assert.notOk(utilities.isPositiveNumber(-6));
+		assert.notOk(utilities.isPositiveNumber(0));
 	});
 });
 
 describe("getIndexOfAction", function() {
-	it("should return index of --save", function() {
+	it("should validate for --save", function() {
 		assert.strictEqual(utilities.getIndexOfAction(["--save"]), 0);
 	});
-	it("should return index of --query", function() {
+	it("should validate for --query", function() {
 		assert.strictEqual(utilities.getIndexOfAction(["--query"]), 0);
 	});
-	it("should return -1 if both are exists", function() {
+	it("should validate if both are exists", function() {
 		assert.strictEqual(utilities.getIndexOfAction(["--save", "--query"]), -1);
 	});
-	it("should return -1 if both doesn't exists", function() {
+	it("should validate if both doesn't exists", function() {
 		assert.strictEqual(utilities.getIndexOfAction(["ss", "sss"]), -1);
-	});
-});
-
-describe("helpMsg", function() {
-	it("Should return help message", function() {
-		assert.strictEqual(utilities.helpMsg(), "please enter valid input");
 	});
 });
 
@@ -42,12 +41,6 @@ describe("writeIntoFile", function() {
 	it("Should write to the given file", function() {
 		utilities.writeIntoFile("./testFileForWrites", "hello");
 		assert.strictEqual(utilities.readFromFile("./testFileForWrites"), "hello");
-	});
-});
-
-describe("timeStamp", function() {
-	it("Should return time", function() {
-		assert.strictEqual(utilities.timeStamp(), utilities.timeStamp());
 	});
 });
 

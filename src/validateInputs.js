@@ -19,29 +19,29 @@ const validateSave = function(args) {
 	const indexOfQty = args.indexOf("--qty") + 1;
 	const indexOfBev = args.indexOf("--beverage") + 1;
 	return (
-		utilities.isNumber(args[indexOfEId]) &&
-		utilities.isNumber(args[indexOfQty]) &&
-		!utilities.isNumber(args[indexOfBev]) &&
+		utilities.isPositiveNumber(args[indexOfEId]) &&
+		utilities.isPositiveNumber(args[indexOfQty]) &&
+		!utilities.isPositiveNumber(args[indexOfBev]) &&
 		args.length == 7
 	);
 };
 
 const validateQuery = function(args) {
-	if (args.length <= 5) {
+	if (args.length <= 7) {
 		if (args.includes("--date") && args.includes("--empId")) {
 			const indexOfEId = args.indexOf("--empId") + 1;
 			const indexOfDate = args.indexOf("--date") + 1;
 			const date = args[indexOfDate];
 			const dateArray = date.split("-");
 			return (
-				utilities.isNumber(args[indexOfEId]) &&
-				dateArray.every(utilities.isNumber)
+				utilities.isPositiveNumber(args[indexOfEId]) &&
+				dateArray.every(utilities.isPositiveNumber)
 			);
 		}
 
 		const index = args.indexOf("--empId") + 1 || args.indexOf("--date") + 1;
 
-		return args[index].split("-").every(utilities.isNumber);
+		return args[index].split("-").every(utilities.isPositiveNumber);
 	}
 	return false;
 };
