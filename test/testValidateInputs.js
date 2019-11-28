@@ -29,7 +29,9 @@ describe("validateQuery", function() {
 				"--qty",
 				"12",
 				"--beverage",
-				"orange"
+				"orange",
+				"--qty",
+				"2"
 			])
 		);
 	});

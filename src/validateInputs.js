@@ -15,26 +15,26 @@ const invalidInput = function() {
 };
 
 const validateSave = function(args) {
-	const indexOfEId = args.indexOf("--empId") + 1;
-	const indexOfQty = args.indexOf("--qty") + 1;
-	const indexOfBev = args.indexOf("--beverage") + 1;
+	const indexOfEId = args.indexOf("--empId");
+	const indexOfQty = args.indexOf("--qty");
+	const indexOfBev = args.indexOf("--beverage");
 	return (
-		utilities.isPositiveNumber(args[indexOfEId]) &&
-		utilities.isPositiveNumber(args[indexOfQty]) &&
-		!utilities.isPositiveNumber(args[indexOfBev]) &&
+		utilities.isPositiveNumber(args[indexOfEId + 1]) &&
+		utilities.isPositiveNumber(args[indexOfQty + 1]) &&
+		!utilities.isPositiveNumber(args[indexOfBev + 1]) &&
 		args.length == 7
 	);
 };
 
 const validateQuery = function(args) {
-	if (args.length <= 7) {
+	if (args.length <= 9) {
 		if (args.includes("--date") && args.includes("--empId")) {
-			const indexOfEId = args.indexOf("--empId") + 1;
-			const indexOfDate = args.indexOf("--date") + 1;
-			const date = args[indexOfDate];
+			const indexOfEId = args.indexOf("--empId");
+			const indexOfDate = args.indexOf("--date");
+			const date = args[indexOfDate + 1];
 			const dateArray = date.split("-");
 			return (
-				utilities.isPositiveNumber(args[indexOfEId]) &&
+				utilities.isPositiveNumber(args[indexOfEId + 1]) &&
 				dateArray.every(utilities.isPositiveNumber)
 			);
 		}

@@ -11,12 +11,16 @@ const query = function(
 	if (isFilePresent(path)) {
 		const data = readFromFile(path);
 		const record = JSON.parse(data || "[]");
-		const indexOfDate = args.indexOf("--date") + 1;
-		const date = args[indexOfDate];
-		const indexOfEid = args.indexOf("--empId") + 1;
-		const empId = args[indexOfEid];
-		const indexOfBev = args.indexOf("--beverage") + 1;
-		const beverage = args[indexOfBev];
+
+		const indexOfEid = args.indexOf("--empId");
+		const indexOfBev = args.indexOf("--beverage");
+		const indexOfQty = args.indexOf("--qty");
+		const indexOfDate = args.indexOf("--date");
+
+		const empId = args[indexOfEid + 1];
+		const beverage = args[indexOfBev + 1];
+		const qty = args[indexOfQty + 1];
+		const date = args[indexOfDate + 1];
 
 		let empData = record;
 		if (args.includes("--date")) {
@@ -26,9 +30,15 @@ const query = function(
 		if (args.includes("--empId")) {
 			empData = empData.filter(isGivenOption(empId, "empId"));
 		}
+
 		if (args.includes("--beverage")) {
 			empData = empData.filter(isGivenOption(beverage, "beverage"));
 		}
+
+		if (args.includes("--qty")) {
+			empData = empData.filter(isGivenOption(qty, "qty"));
+		}
+
 		return empData;
 	}
 	return 0;
@@ -41,10 +51,11 @@ const isGivenDate = function(date) {
 	};
 };
 
-const isGivenOption = function(empId, option) {
+const isGivenOption = function(userOption, option) {
 	return function(obj) {
-		const trEmpId = obj[option];
-		return empId == trEmpId;
+		const trOption = obj[option];
+
+		return userOption == trOption;
 	};
 };
 
