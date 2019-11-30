@@ -2,3 +2,5 @@ node_modules/
 .nyc_output/
 coverage/
 transactionsData.json
+testFileForRead
+testFileForWrite

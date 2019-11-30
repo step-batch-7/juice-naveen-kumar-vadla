@@ -61,7 +61,7 @@ describe("QueryAction", function() {
 			timeStamp,
 			path
 		);
-		assert.strictEqual(actual, 0);
+		assert.deepStrictEqual(actual, []);
 	});
 
 	it("Should validate if file is present but empty", function() {

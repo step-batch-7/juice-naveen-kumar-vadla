@@ -38,10 +38,9 @@ const query = function(
 		if (args.includes("--qty")) {
 			empData = empData.filter(isGivenOption(qty, "qty"));
 		}
-
 		return empData;
 	}
-	return 0;
+	return [];
 };
 
 const isGivenDate = function(date) {

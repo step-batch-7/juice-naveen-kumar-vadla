@@ -14,6 +14,7 @@ const performAction = function(
 	if (!isValidInput(args)) {
 		return "please enter valid input";
 	}
+	args = arrangeArgs(args);
 	const actions = { "--save": save, "--query": query };
 	const actionMessage = {
 		"--save": getSaveMessage,
@@ -44,19 +45,24 @@ const getSaveMessage = function(newRecord) {
 };
 
 const getQueryMessage = function(empData) {
-	let result = "Records Not Found";
-	if (empData != 0) {
-		const empTotalBeverages = empData.reduce(function(sum, obj) {
-			return sum + parseInt(obj["qty"]);
-		}, 0);
-		const values = empData.map(function(obj) {
-			return [obj.empId, obj.beverage, obj.qty, obj.date];
-		});
-		result = `Employee ID, Beverage, Quantity, Date\n${[
-			values.join("\n")
-		]}\nTotal: ${empTotalBeverages} Juice`;
-	}
+	const empTotalBeverages = empData.reduce(function(sum, obj) {
+		return sum + parseInt(obj["qty"]);
+	}, 0);
+	const values = empData.map(function(obj) {
+		return [obj.empId, obj.beverage, obj.qty, obj.date];
+	});
+	const juiceString =
+		empTotalBeverages > 1 || empTotalBeverages == 0 ? "Juices" : "Juice";
+	const result = [
+		`Employee ID, Beverage, Quantity, Date`,
+		...values,
+		`Total: ${empTotalBeverages} ${juiceString}`
+	].join("\n");
 	return result;
+};
+
+const arrangeArgs = function(args) {
+	return args;
 };
 
 exports.performAction = performAction;

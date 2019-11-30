@@ -33,20 +33,21 @@ describe("getIndexOfAction", function() {
 
 describe("readFromFile", function() {
 	it("Should read given File", function() {
+		utilities.writeIntoFile("./testFileForRead", "hello");
 		assert.strictEqual(utilities.readFromFile("./testFileForRead"), "hello");
 	});
 });
 
 describe("writeIntoFile", function() {
 	it("Should write to the given file", function() {
-		utilities.writeIntoFile("./testFileForWrites", "hello");
-		assert.strictEqual(utilities.readFromFile("./testFileForWrites"), "hello");
+		utilities.writeIntoFile("./testFileForWrite", "hello");
+		assert.strictEqual(utilities.readFromFile("./testFileForWrite"), "hello");
 	});
 });
 
 describe("isFilePresent", function() {
 	it("Should validate if file is present", function() {
-		assert.ok(utilities.isFilePresent("./testFileForWrites"));
+		assert.ok(utilities.isFilePresent("./beverage.js"));
 	});
 	it("Should validate if file is not present", function() {
 		assert.ok(!utilities.isFilePresent("./naveen"));

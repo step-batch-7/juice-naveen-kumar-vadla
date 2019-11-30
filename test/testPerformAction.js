@@ -76,11 +76,11 @@ describe("performAction", function() {
 			"\n" +
 			"Total: " +
 			2 +
-			" Juice";
+			" Juices";
 		assert.deepStrictEqual(actual, expected);
 	});
 
-	it("Should validate query if employee data not found", function() {
+	it("Should validate query if employee data file not found", function() {
 		const args = ["--query", "--empId", "123"];
 		const timeStamp = function() {
 			return new Date("2019-11-26T05:33:25.642Z");
@@ -103,7 +103,8 @@ describe("performAction", function() {
 			timeStamp,
 			path
 		);
-		const expected = "Records Not Found";
+
+		const expected = "Employee ID, Beverage, Quantity, Date\nTotal: 0 Juices";
 		assert.deepStrictEqual(actual, expected);
 	});
 
@@ -183,7 +184,7 @@ describe("getQueryMessage", function() {
 		];
 		const actual = performAction.getQueryMessage(args);
 		const expected =
-			"Employee ID, Beverage, Quantity, Date\n123,orange,1,2019-11-26T05:33:25.642Z\n123,apple,1,2019-11-26T05:33:29.642Z\nTotal: 2 Juice";
+			"Employee ID, Beverage, Quantity, Date\n123,orange,1,2019-11-26T05:33:25.642Z\n123,apple,1,2019-11-26T05:33:29.642Z\nTotal: 2 Juices";
 		assert.strictEqual(actual, expected);
 	});
 });

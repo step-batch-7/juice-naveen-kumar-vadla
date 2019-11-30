@@ -26,6 +26,7 @@ const save = function(
 		const data = readFromFile(path);
 		record = JSON.parse(data || "[]");
 	}
+
 	const newRecord = generateTransactionRecord(args, timeStamp);
 	record.push(newRecord);
 	const stringifiedRecord = JSON.stringify(record);
