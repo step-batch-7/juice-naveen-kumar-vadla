@@ -6,15 +6,7 @@ const saveAction = require("../src/saveAction");
 
 describe("generateTransactionRecord", function() {
 	it("Should generate transaction record", function() {
-		const data = [
-			"--save",
-			"--qty",
-			"1",
-			"--empId",
-			"123",
-			"--beverage",
-			"orange"
-		];
+		const data = ["--save", "123", "orange", "1"];
 
 		const expected = {
 			empId: 123,
@@ -35,15 +27,7 @@ describe("generateTransactionRecord", function() {
 
 describe("save", function() {
 	it("Should validate even if file is not present", function() {
-		const args = [
-			"--save",
-			"--qty",
-			"1",
-			"--empId",
-			"123",
-			"--beverage",
-			"orange"
-		];
+		const args = ["--save", "123", "orange", "1"];
 		const timeStamp = function() {
 			return "2019-11-26T05:33:25.642Z";
 		};
@@ -73,17 +57,8 @@ describe("save", function() {
 		};
 		assert.deepStrictEqual(actual, expected);
 	});
-
 	it("Should validate if file is present but contains empty space", function() {
-		const args = [
-			"--save",
-			"--qty",
-			"1",
-			"--empId",
-			"123",
-			"--beverage",
-			"orange"
-		];
+		const args = ["--save", "123", "orange", "1"];
 		const timeStamp = function() {
 			return "2019-11-26T05:33:25.642Z";
 		};
@@ -114,15 +89,7 @@ describe("save", function() {
 		assert.deepStrictEqual(actual, expected);
 	});
 	it("Should validate if file is present and contains previous transactions", function() {
-		const args = [
-			"--save",
-			"--qty",
-			"1",
-			"--empId",
-			"123",
-			"--beverage",
-			"orange"
-		];
+		const args = ["--save", "123", "orange", "1"];
 		const timeStamp = function() {
 			return "2019-11-26T05:33:25.642Z";
 		};

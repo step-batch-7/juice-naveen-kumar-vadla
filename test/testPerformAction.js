@@ -3,8 +3,6 @@ const assert = require("chai").assert;
 const fs = require("fs");
 
 const performAction = require("../src/performAction");
-const getSaveMessage = require("../src/performAction").getSaveMessage;
-const getQueryMessage = require("../src/performAction").getQueryMessage;
 
 describe("performAction", function() {
 	it("Should validate save", function() {
@@ -186,5 +184,31 @@ describe("getQueryMessage", function() {
 		const expected =
 			"Employee ID, Beverage, Quantity, Date\n123,orange,1,2019-11-26T05:33:25.642Z\n123,apple,1,2019-11-26T05:33:29.642Z\nTotal: 2 Juices";
 		assert.strictEqual(actual, expected);
+	});
+});
+
+describe("arrangeArgs", function() {
+	it("Should arrange the given valid args", function() {
+		const args = [
+			"--save",
+			"--empId",
+			"123",
+			"--date",
+			"2019-11-29",
+			"--beverage",
+			"Orange",
+			"--qty",
+			"2"
+		];
+		const actual = performAction.arrangeArgs(args);
+		const expected = ["--save", "123", "Orange", "2", "2019-11-29"];
+		assert.deepStrictEqual(actual, expected);
+	});
+	it("Should give aranged args with undefined if both save and query present or if both didn't present", function() {
+		const args = ["--save", "--query", "--empId", "123"];
+		const actual = performAction.arrangeArgs(args);
+		console.log(actual);
+		const expected = [undefined, "123", undefined, undefined, undefined];
+		assert.deepStrictEqual(actual, expected);
 	});
 });

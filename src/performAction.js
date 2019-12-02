@@ -11,17 +11,16 @@ const performAction = function(
 	timeStamp,
 	path
 ) {
+	args = arrangeArgs(args);
 	if (!isValidInput(args)) {
 		return "please enter valid input";
 	}
-	args = arrangeArgs(args);
 	const actions = { "--save": save, "--query": query };
 	const actionMessage = {
 		"--save": getSaveMessage,
 		"--query": getQueryMessage
 	};
-	const actionIndex = getIndexOfAction(args);
-	const action = args[actionIndex];
+	const action = args[0];
 	const transactions = actions[action](
 		args,
 		isFilePresent,
@@ -34,12 +33,11 @@ const performAction = function(
 };
 
 const getSaveMessage = function(newRecord) {
-	newRecord["date"] = newRecord["date"].toJSON();
 	const Values = [
 		newRecord.empId,
 		newRecord.beverage,
 		newRecord.qty,
-		newRecord.date
+		newRecord.date.toJSON()
 	];
 	return `Transaction Recorded:\nEmployee ID, Beverage, Quantity, Date\n${Values}`;
 };
@@ -51,8 +49,7 @@ const getQueryMessage = function(empData) {
 	const values = empData.map(function(obj) {
 		return [obj.empId, obj.beverage, obj.qty, obj.date];
 	});
-	const juiceString =
-		empTotalBeverages > 1 || empTotalBeverages == 0 ? "Juices" : "Juice";
+	const juiceString = empTotalBeverages == 1 ? "Juice" : "Juices";
 	const result = [
 		`Employee ID, Beverage, Quantity, Date`,
 		...values,
@@ -62,9 +59,29 @@ const getQueryMessage = function(empData) {
 };
 
 const arrangeArgs = function(args) {
-	return args;
+	const indexOfOption = getIndexOfAction(args);
+	const indexOfEid = args.indexOf("--empId");
+	const indexOfBev = args.indexOf("--beverage");
+	const indexOfQty = args.indexOf("--qty");
+	const indexOfDate = args.indexOf("--date");
+	const indexes = [indexOfEid, indexOfBev, indexOfQty, indexOfDate].map(
+		function(index) {
+			return index < 0 ? index : index + 1;
+		}
+	);
+
+	const arranged = [
+		args[indexOfOption],
+		args[indexes[0]],
+		args[indexes[1]],
+		args[indexes[2]],
+		args[indexes[3]]
+	];
+
+	return arranged;
 };
 
 exports.performAction = performAction;
 exports.getSaveMessage = getSaveMessage;
 exports.getQueryMessage = getQueryMessage;
+exports.arrangeArgs = arrangeArgs;

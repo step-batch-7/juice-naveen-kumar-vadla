@@ -1,14 +1,10 @@
 "use strict";
 
 const generateTransactionRecord = function(input, timeStamp) {
-	const indexOfEid = input.indexOf("--empId");
-	const indexOfBev = input.indexOf("--beverage");
-	const indexOfQty = input.indexOf("--qty");
-
 	return {
-		empId: +input[indexOfEid + 1],
-		beverage: input[indexOfBev + 1],
-		qty: +input[indexOfQty + 1],
+		empId: +input[1],
+		beverage: input[2],
+		qty: +input[3],
 		date: timeStamp()
 	};
 };

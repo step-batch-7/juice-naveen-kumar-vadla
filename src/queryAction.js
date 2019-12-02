@@ -12,32 +12,25 @@ const query = function(
 		const data = readFromFile(path);
 		const record = JSON.parse(data || "[]");
 
-		const indexOfEid = args.indexOf("--empId");
-		const indexOfBev = args.indexOf("--beverage");
-		const indexOfQty = args.indexOf("--qty");
-		const indexOfDate = args.indexOf("--date");
-
-		const empId = args[indexOfEid + 1];
-		const beverage = args[indexOfBev + 1];
-		const qty = args[indexOfQty + 1];
-		const date = args[indexOfDate + 1];
-
+		const empId = args[1];
+		const beverage = args[2];
+		const qty = args[3];
+		const date = args[4];
 		let empData = record;
-		if (args.includes("--date")) {
-			empData = empData.filter(isGivenDate(date));
-		}
+		const isEmpIdDefined =
+			empId && empData.filter(isGivenOption(empId, "empId"));
+		empData = isEmpIdDefined || empData;
 
-		if (args.includes("--empId")) {
-			empData = empData.filter(isGivenOption(empId, "empId"));
-		}
+		const isBeverageDefined =
+			beverage && empData.filter(isGivenOption(beverage, "beverage"));
+		empData = isBeverageDefined || empData;
 
-		if (args.includes("--beverage")) {
-			empData = empData.filter(isGivenOption(beverage, "beverage"));
-		}
+		const isQtyDefined = qty && empData.filter(isGivenOption(qty, "qty"));
+		empData = isQtyDefined || empData;
 
-		if (args.includes("--qty")) {
-			empData = empData.filter(isGivenOption(qty, "qty"));
-		}
+		const isDateDefined = date && empData.filter(isGivenDate(date));
+		empData = isDateDefined || empData;
+
 		return empData;
 	}
 	return [];

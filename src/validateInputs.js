@@ -6,8 +6,8 @@ const isValidInput = function(args) {
 		"--query": validateQuery,
 		undefined: invalidInput
 	};
-	const index = utilities.getIndexOfAction(args);
-	return validateAction[args[index]](args);
+	const action = args[0];
+	return validateAction[action](args);
 };
 
 const invalidInput = function() {
@@ -15,35 +15,39 @@ const invalidInput = function() {
 };
 
 const validateSave = function(args) {
-	const indexOfEId = args.indexOf("--empId");
-	const indexOfQty = args.indexOf("--qty");
-	const indexOfBev = args.indexOf("--beverage");
+	const empId = args[1];
+	const beverage = args[2];
+	const qty = args[3];
+
 	return (
-		utilities.isPositiveNumber(args[indexOfEId + 1]) &&
-		utilities.isPositiveNumber(args[indexOfQty + 1]) &&
-		!utilities.isPositiveNumber(args[indexOfBev + 1]) &&
-		args.length == 7
+		[empId, qty].every(utilities.isPositiveNumber) &&
+		beverage.split("").every(function(char) {
+			return char.match(/[a-zA-Z]/);
+		}) &&
+		args.length == 5
 	);
 };
 
 const validateQuery = function(args) {
-	if (args.length <= 9) {
-		if (args.includes("--date") && args.includes("--empId")) {
-			const indexOfEId = args.indexOf("--empId");
-			const indexOfDate = args.indexOf("--date");
-			const date = args[indexOfDate + 1];
-			const dateArray = date.split("-");
-			return (
-				utilities.isPositiveNumber(args[indexOfEId + 1]) &&
-				dateArray.every(utilities.isPositiveNumber)
-			);
-		}
-
-		const index = args.indexOf("--empId") + 1 || args.indexOf("--date") + 1;
-
-		return args[index].split("-").every(utilities.isPositiveNumber);
+	let result = true;
+	if (args[1] != undefined) {
+		result = result && utilities.isPositiveNumber(args[1]);
 	}
-	return false;
+	if (args[3] != undefined) {
+		result = result && utilities.isPositiveNumber(args[3]);
+	}
+	if (args[4] != undefined) {
+		result = result && args[4].split("-").every(utilities.isPositiveNumber);
+	}
+	if (args[2] != undefined) {
+		result =
+			result &&
+			args[2].split("").every(function(char) {
+				return char.match(/[a-zA-Z]/);
+			});
+	}
+
+	return result && args.length <= 5;
 };
 
 exports.isValidInput = isValidInput;
