@@ -5,7 +5,7 @@
   "main": "beverage.js",
   "scripts": {
     "test": "mocha",
-    "alltests" : "nyc mocha && ./runAppTests.sh appTest/*.test"
+    "alltests" : "nyc mocha && ./runAppTests.sh appTests/*.test"
   },
   "author": "",
   "license": "ISC",
