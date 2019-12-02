@@ -7,6 +7,17 @@ describe("invalidInput", function() {
 	});
 });
 
+describe("isValidDate", function() {
+	it("Should validate the given date", function() {
+		assert.ok(validateInput.isValidDate("2019-11-12"));
+	});
+	it("Should validate if invalid date is given", function() {
+		assert.notOk(validateInput.isValidDate("abcd"));
+		assert.notOk(validateInput.isValidDate("2019.11.12"));
+		assert.notOk(validateInput.isValidDate("2019-ab-12"));
+	});
+});
+
 describe("validateQuery", function() {
 	it("Should validate if valid query arguments are given ", function() {
 		assert.ok(
@@ -31,22 +42,8 @@ describe("validateQuery", function() {
 	});
 
 	it("should validate invalid query args are given", function() {
-		assert.notOk(
-			validateInput.validateQuery(["--query", "--empId", "343ds434"])
-		);
-		assert.notOk(
-			validateInput.validateQuery(["--query", "--date", "dd-mm-yyyy"])
-		);
-		assert.notOk(
-			validateInput.validateQuery([
-				"--query",
-				"123",
-				"orange",
-				"2",
-				"10-10-2019",
-				"naveen"
-			])
-		);
+		assert.notOk(validateInput.validateQuery(["--query", "121", "12"]));
+		assert.notOk(validateInput.validateQuery(["--query", "dd-mm-yyyy"]));
 	});
 });
 

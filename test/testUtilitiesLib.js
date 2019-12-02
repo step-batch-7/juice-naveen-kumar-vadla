@@ -16,21 +16,6 @@ describe("isPositiveNumber", function() {
 	});
 });
 
-describe("getIndexOfAction", function() {
-	it("should validate for --save", function() {
-		assert.strictEqual(utilities.getIndexOfAction(["--save"]), 0);
-	});
-	it("should validate for --query", function() {
-		assert.strictEqual(utilities.getIndexOfAction(["--query"]), 0);
-	});
-	it("should validate if both are exists", function() {
-		assert.strictEqual(utilities.getIndexOfAction(["--save", "--query"]), -1);
-	});
-	it("should validate if both doesn't exists", function() {
-		assert.strictEqual(utilities.getIndexOfAction(["ss", "sss"]), -1);
-	});
-});
-
 describe("readFromFile", function() {
 	it("Should read given File", function() {
 		utilities.writeIntoFile("./testFileForRead", "hello");

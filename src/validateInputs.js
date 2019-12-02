@@ -1,4 +1,4 @@
-const utilities = require("./utilitiesLib");
+const { isPositiveNumber } = require("./utilitiesLib");
 
 const isValidInput = function(args) {
 	const validateAction = {
@@ -14,43 +14,36 @@ const invalidInput = function() {
 	return false;
 };
 
+const isValidDate = function(date) {
+	return date.split("-").every(isPositiveNumber);
+};
+
 const validateSave = function(args) {
 	const empId = args[1];
 	const beverage = args[2];
 	const qty = args[3];
 
-	return (
-		[empId, qty].every(utilities.isPositiveNumber) &&
-		beverage.split("").every(function(char) {
-			return char.match(/[a-zA-Z]/);
-		}) &&
-		args.length == 5
-	);
+	return [empId, qty].every(isPositiveNumber) && isNaN(beverage);
 };
 
 const validateQuery = function(args) {
 	let result = true;
-	if (args[1] != undefined) {
-		result = result && utilities.isPositiveNumber(args[1]);
+	const features = {
+		1: isPositiveNumber,
+		2: isNaN,
+		3: isPositiveNumber,
+		4: isValidDate
+	};
+	for (let index = 1; index <= 4; index++) {
+		const isUndefined = args[index] == undefined;
+		const isValidData = isUndefined || features[index](args[index]);
+		result = result && isValidData;
 	}
-	if (args[3] != undefined) {
-		result = result && utilities.isPositiveNumber(args[3]);
-	}
-	if (args[4] != undefined) {
-		result = result && args[4].split("-").every(utilities.isPositiveNumber);
-	}
-	if (args[2] != undefined) {
-		result =
-			result &&
-			args[2].split("").every(function(char) {
-				return char.match(/[a-zA-Z]/);
-			});
-	}
-
-	return result && args.length <= 5;
+	return result;
 };
 
 exports.isValidInput = isValidInput;
 exports.invalidInput = invalidInput;
 exports.validateSave = validateSave;
 exports.validateQuery = validateQuery;
+exports.isValidDate = isValidDate;

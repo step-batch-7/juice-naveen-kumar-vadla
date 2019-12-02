@@ -1,6 +1,5 @@
 const save = require("./saveAction").save;
 const query = require("./queryAction").query;
-const getIndexOfAction = require("./utilitiesLib").getIndexOfAction;
 const isValidInput = require("./validateInputs").isValidInput;
 
 const performAction = function(
@@ -12,16 +11,14 @@ const performAction = function(
 	path
 ) {
 	args = arrangeArgs(args);
-	if (!isValidInput(args)) {
-		return "please enter valid input";
-	}
-	const actions = { "--save": save, "--query": query };
-	const actionMessage = {
-		"--save": getSaveMessage,
-		"--query": getQueryMessage
+	const action = isValidInput(args) && args[0];
+
+	const actions = {
+		"--save": [save, getSaveMessage],
+		"--query": [query, getQueryMessage],
+		false: [helpMsg, helpMsg]
 	};
-	const action = args[0];
-	const transactions = actions[action](
+	const transactions = actions[action][0](
 		args,
 		isFilePresent,
 		readFromFile,
@@ -29,7 +26,7 @@ const performAction = function(
 		timeStamp,
 		path
 	);
-	return actionMessage[action](transactions);
+	return actions[action][1](transactions);
 };
 
 const getSaveMessage = function(newRecord) {
@@ -59,7 +56,8 @@ const getQueryMessage = function(empData) {
 };
 
 const arrangeArgs = function(args) {
-	const indexOfOption = getIndexOfAction(args);
+	const indexOfOption =
+		(args.indexOf("--save") + 1 || args.indexOf("--query") + 1) - 1;
 	const indexOfEid = args.indexOf("--empId");
 	const indexOfBev = args.indexOf("--beverage");
 	const indexOfQty = args.indexOf("--qty");
@@ -81,7 +79,12 @@ const arrangeArgs = function(args) {
 	return arranged;
 };
 
+const helpMsg = function() {
+	return "please enter valid input";
+};
+
 exports.performAction = performAction;
 exports.getSaveMessage = getSaveMessage;
 exports.getQueryMessage = getQueryMessage;
 exports.arrangeArgs = arrangeArgs;
+exports.helpMsg = helpMsg;

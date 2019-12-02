@@ -1,7 +1,5 @@
 "use strict";
 const assert = require("chai").assert;
-const fs = require("fs");
-
 const performAction = require("../src/performAction");
 
 describe("performAction", function() {
@@ -204,11 +202,17 @@ describe("arrangeArgs", function() {
 		const expected = ["--save", "123", "Orange", "2", "2019-11-29"];
 		assert.deepStrictEqual(actual, expected);
 	});
-	it("Should give aranged args with undefined if both save and query present or if both didn't present", function() {
-		const args = ["--save", "--query", "--empId", "123"];
+	it("Should give aranged args with undefined for values which doesn't  present", function() {
+		const args = ["--save", "--empId", "123"];
 		const actual = performAction.arrangeArgs(args);
 		console.log(actual);
-		const expected = [undefined, "123", undefined, undefined, undefined];
+		const expected = ["--save", "123", undefined, undefined, undefined];
 		assert.deepStrictEqual(actual, expected);
+	});
+});
+
+describe("helpMsg", function() {
+	it("Should give help message for invalid arguments", function() {
+		assert.strictEqual(performAction.helpMsg(), "please enter valid input");
 	});
 });

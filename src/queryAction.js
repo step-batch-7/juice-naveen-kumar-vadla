@@ -38,16 +38,16 @@ const query = function(
 
 const isGivenDate = function(date) {
 	return function(obj) {
-		const trDate = obj["date"].slice(0, date.length);
-		return date == trDate;
+		const txnDate = obj["date"].slice(0, date.length);
+		return date == txnDate;
 	};
 };
 
 const isGivenOption = function(userOption, option) {
 	return function(obj) {
-		const trOption = obj[option];
+		const txnOption = obj[option];
 
-		return userOption == trOption;
+		return userOption == txnOption;
 	};
 };
 
