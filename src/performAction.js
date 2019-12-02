@@ -10,8 +10,12 @@ const performAction = function(
 	timeStamp,
 	path
 ) {
-	args = arrangeArgs(args);
-	const action = isValidInput(args) && args[0];
+	let action = false;
+
+	if (!bothIncludes(args)) {
+		args = arrangeArgs(args);
+		action = isValidInput(args) && args[0];
+	}
 
 	const actions = {
 		"--save": [save, getSaveMessage],
@@ -83,8 +87,13 @@ const helpMsg = function() {
 	return "please enter valid input";
 };
 
+const bothIncludes = function(args) {
+	return args.includes("--save") && args.includes("--query");
+};
+
 exports.performAction = performAction;
 exports.getSaveMessage = getSaveMessage;
 exports.getQueryMessage = getQueryMessage;
 exports.arrangeArgs = arrangeArgs;
 exports.helpMsg = helpMsg;
+exports.bothIncludes = bothIncludes;

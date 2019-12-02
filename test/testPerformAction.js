@@ -130,6 +130,60 @@ describe("performAction", function() {
 		const expected = "please enter valid input";
 		assert.deepStrictEqual(actual, expected);
 	});
+
+	it("Should validate if both options are preseent", function() {
+		const args = ["--query", "--save", "--empId", "123"];
+		const timeStamp = function() {
+			return new Date("2019-11-26T05:33:25.642Z");
+		};
+		const writeIntoFile = function(filepath, data) {
+			return "";
+		};
+		const readFromFile = function(filepath) {
+			return "";
+		};
+		const isFilePresent = function(filepath) {
+			return true;
+		};
+		const path = "./naveen.js";
+		const actual = performAction.performAction(
+			args,
+			isFilePresent,
+			readFromFile,
+			writeIntoFile,
+			timeStamp,
+			path
+		);
+		const expected = "please enter valid input";
+		assert.deepStrictEqual(actual, expected);
+	});
+
+	it("Should validate if both options are not present", function() {
+		const args = ["--empId", "123"];
+		const timeStamp = function() {
+			return new Date("2019-11-26T05:33:25.642Z");
+		};
+		const writeIntoFile = function(filepath, data) {
+			return "";
+		};
+		const readFromFile = function(filepath) {
+			return "";
+		};
+		const isFilePresent = function(filepath) {
+			return true;
+		};
+		const path = "./naveen.js";
+		const actual = performAction.performAction(
+			args,
+			isFilePresent,
+			readFromFile,
+			writeIntoFile,
+			timeStamp,
+			path
+		);
+		const expected = "please enter valid input";
+		assert.deepStrictEqual(actual, expected);
+	});
 });
 
 describe("getSaveMessage", function() {
@@ -213,5 +267,18 @@ describe("arrangeArgs", function() {
 describe("helpMsg", function() {
 	it("Should give help message for invalid arguments", function() {
 		assert.strictEqual(performAction.helpMsg(), "please enter valid input");
+	});
+});
+
+describe("bothIncludes", function() {
+	it("Should validate if both present", function() {
+		assert.ok(performAction.bothIncludes(["--save", "--query"]));
+	});
+	it("Should validate if both were not present ", function() {
+		assert.notOk(performAction.bothIncludes([]));
+	});
+	it("Should validate if any one option is present", function() {
+		assert.notOk(performAction.bothIncludes(["--save"]));
+		assert.notOk(performAction.bothIncludes(["--query"]));
 	});
 });
