@@ -205,7 +205,6 @@ describe("arrangeArgs", function() {
 	it("Should give aranged args with undefined for values which doesn't  present", function() {
 		const args = ["--save", "--empId", "123"];
 		const actual = performAction.arrangeArgs(args);
-		console.log(actual);
 		const expected = ["--save", "123", undefined, undefined, undefined];
 		assert.deepStrictEqual(actual, expected);
 	});
