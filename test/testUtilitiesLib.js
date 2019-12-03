@@ -43,6 +43,6 @@ describe("isFilePresent", function() {
 		assert.ok(utilities.isFilePresent("./beverage.js"));
 	});
 	it("Should validate if file is not present", function() {
-		assert.ok(!utilities.isFilePresent("./naveen"));
+		assert.notOk(utilities.isFilePresent("./naveen"));
 	});
 });
