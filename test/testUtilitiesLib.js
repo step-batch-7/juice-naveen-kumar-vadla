@@ -1,3 +1,5 @@
+"use strict";
+
 const utilities = require("../src/utilitiesLib");
 const assert = require("chai").assert;
 
@@ -18,15 +20,21 @@ describe("isPositiveNumber", function() {
 
 describe("readFromFile", function() {
 	it("Should read given File", function() {
-		utilities.writeIntoFile("./testFileForRead", "hello");
-		assert.strictEqual(utilities.readFromFile("./testFileForRead"), "hello");
+		utilities.writeIntoFile("./data/testFileForRead", "hello");
+		assert.strictEqual(
+			utilities.readFromFile("./data/testFileForRead"),
+			"hello"
+		);
 	});
 });
 
 describe("writeIntoFile", function() {
 	it("Should write to the given file", function() {
-		utilities.writeIntoFile("./testFileForWrite", "hello");
-		assert.strictEqual(utilities.readFromFile("./testFileForWrite"), "hello");
+		utilities.writeIntoFile("./data/testFileForWrite", "hello");
+		assert.strictEqual(
+			utilities.readFromFile("./data/testFileForWrite"),
+			"hello"
+		);
 	});
 });
 

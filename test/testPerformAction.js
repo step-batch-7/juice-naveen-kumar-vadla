@@ -270,15 +270,17 @@ describe("helpMsg", function() {
 	});
 });
 
-describe("bothIncludes", function() {
+describe("bothIncludesOrNot", function() {
 	it("Should validate if both present", function() {
-		assert.ok(performAction.bothIncludes(["--save", "--query"]));
+		assert.ok(performAction.bothIncludesOrNot(["--save", "--query"]));
 	});
 	it("Should validate if both were not present ", function() {
-		assert.notOk(performAction.bothIncludes([]));
+		assert.ok(performAction.bothIncludesOrNot([]));
 	});
-	it("Should validate if any one option is present", function() {
-		assert.notOk(performAction.bothIncludes(["--save"]));
-		assert.notOk(performAction.bothIncludes(["--query"]));
+	it("Should validate if any --save option is present", function() {
+		assert.notOk(performAction.bothIncludesOrNot(["--save"]));
+	});
+	it("Should validate if any --query option is present", function() {
+		assert.notOk(performAction.bothIncludesOrNot(["--query"]));
 	});
 });

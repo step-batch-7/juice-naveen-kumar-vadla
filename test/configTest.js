@@ -1,3 +1,5 @@
+"use strict";
+
 const assert = require("assert");
 const { getDataStorePath, timeStamp } = require("../src/config");
 

@@ -1,3 +1,5 @@
+"use strict";
+
 const { isPositiveNumber } = require("./utilitiesLib");
 
 const isValidInput = function(args) {
@@ -27,13 +29,13 @@ const validateSave = function(args) {
 };
 
 const validateQuery = function(args) {
-	let result = true;
 	const features = {
 		1: isPositiveNumber,
 		2: isNaN,
 		3: isPositiveNumber,
 		4: isValidDate
 	};
+	let result = true;
 	for (let index = 1; index <= 4; index++) {
 		const isUndefined = args[index] == undefined;
 		const isValidData = isUndefined || features[index](args[index]);

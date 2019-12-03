@@ -1,7 +1,6 @@
 "use strict";
 
 const assert = require("chai").assert;
-
 const saveAction = require("../src/saveAction");
 
 describe("generateTransactionRecord", function() {

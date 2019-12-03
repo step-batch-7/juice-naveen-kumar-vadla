@@ -1,3 +1,5 @@
+"use strict";
+
 const getDataStorePath = function(env) {
 	return env.JUICE_TRANSACTIONS_STORE_PATH || "./data/transactionsData.json";
 };

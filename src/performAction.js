@@ -1,3 +1,5 @@
+"use strict";
+
 const save = require("./saveAction").save;
 const query = require("./queryAction").query;
 const isValidInput = require("./validateInputs").isValidInput;
@@ -12,7 +14,7 @@ const performAction = function(
 ) {
 	let action = false;
 
-	if (!bothIncludes(args)) {
+	if (!bothIncludesOrNot(args)) {
 		args = arrangeArgs(args);
 		action = isValidInput(args) && args[0];
 	}
@@ -87,8 +89,11 @@ const helpMsg = function() {
 	return "please enter valid input";
 };
 
-const bothIncludes = function(args) {
-	return args.includes("--save") && args.includes("--query");
+const bothIncludesOrNot = function(args) {
+	const isBothPresent = args.includes("--save") && args.includes("--query");
+	const isBothNotPresent =
+		!args.includes("--save") && !args.includes("--query");
+	return isBothPresent || isBothNotPresent;
 };
 
 exports.performAction = performAction;
@@ -96,4 +101,4 @@ exports.getSaveMessage = getSaveMessage;
 exports.getQueryMessage = getQueryMessage;
 exports.arrangeArgs = arrangeArgs;
 exports.helpMsg = helpMsg;
-exports.bothIncludes = bothIncludes;
+exports.bothIncludesOrNot = bothIncludesOrNot;
