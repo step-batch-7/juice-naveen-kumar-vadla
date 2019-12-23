@@ -5,9 +5,12 @@ const {
 	isFilePresent
 } = require("./src/utilitiesLib");
 const performAction = require("./src/performAction").performAction;
-const { timeStamp, getDataStorePath } = require("./src/config");
+const {
+	timeStamp,
+	getDataStorePath
+} = require("./src/config");
 
-const main = function() {
+const main = function () {
 	const args = process.argv.slice(2);
 	const path = getDataStorePath(process.env);
 	const timeStampWithEnv = timeStamp.bind(null, process.env);

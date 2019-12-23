@@ -4,7 +4,7 @@ const save = require("./saveAction").save;
 const query = require("./queryAction").query;
 const isValidInput = require("./validateInputs").isValidInput;
 
-const performAction = function(
+const performAction = function (
 	args,
 	isFilePresent,
 	readFromFile,
@@ -35,7 +35,7 @@ const performAction = function(
 	return actions[action][1](transactions);
 };
 
-const getSaveMessage = function(newRecord) {
+const getSaveMessage = function (newRecord) {
 	const Values = [
 		newRecord.empId,
 		newRecord.beverage,
@@ -45,11 +45,11 @@ const getSaveMessage = function(newRecord) {
 	return `Transaction Recorded:\nEmployee ID, Beverage, Quantity, Date\n${Values}`;
 };
 
-const getQueryMessage = function(empData) {
-	const empTotalBeverages = empData.reduce(function(sum, obj) {
+const getQueryMessage = function (empData) {
+	const empTotalBeverages = empData.reduce(function (sum, obj) {
 		return sum + parseInt(obj["qty"]);
 	}, 0);
-	const values = empData.map(function(obj) {
+	const values = empData.map(function (obj) {
 		return [obj.empId, obj.beverage, obj.qty, obj.date];
 	});
 	const juiceString = empTotalBeverages == 1 ? "Juice" : "Juices";
@@ -61,7 +61,7 @@ const getQueryMessage = function(empData) {
 	return result;
 };
 
-const arrangeArgs = function(args) {
+const arrangeArgs = function (args) {
 	const indexOfOption =
 		(args.indexOf("--save") + 1 || args.indexOf("--query") + 1) - 1;
 	const indexOfEid = args.indexOf("--empId");
@@ -69,7 +69,7 @@ const arrangeArgs = function(args) {
 	const indexOfQty = args.indexOf("--qty");
 	const indexOfDate = args.indexOf("--date");
 	const indexes = [indexOfEid, indexOfBev, indexOfQty, indexOfDate].map(
-		function(index) {
+		function (index) {
 			return index < 0 ? index : index + 1;
 		}
 	);
@@ -85,14 +85,13 @@ const arrangeArgs = function(args) {
 	return arranged;
 };
 
-const helpMsg = function() {
+const helpMsg = function () {
 	return "please enter valid input";
 };
 
-const bothIncludesOrNot = function(args) {
+const bothIncludesOrNot = function (args) {
 	const isBothPresent = args.includes("--save") && args.includes("--query");
-	const isBothNotPresent =
-		!args.includes("--save") && !args.includes("--query");
+	const isBothNotPresent = !args.includes("--save") && !args.includes("--query");
 	return isBothPresent || isBothNotPresent;
 };
 
